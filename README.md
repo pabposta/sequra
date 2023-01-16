@@ -56,6 +56,12 @@ Each disbursement will also belong to a merchant and a week. This field combinat
 
 There are several ways to represent a week, e.g. year + calendar week, start of week or end of week. The task itself does not give any hints, so I will use start of week, as that is what is most natural to me and easy to work with, but in production, this should be user or requirements driven.
 
+To run it in the console:
+`bundle exec rails c`
+`Disbursement.calculate_disbursements_of_week(week_start: DateTime.new(2018, 2, 1))`
+
+This is where I stopped. The code is just implemented, but not tested or properly documented.
+
 ### Iteration 4: Disbursement calculation
 
 The first iteration of the calculation will hard-code the rules in a method. This is not the most elegant solution, but allows to quickly have an MVP of sorts, that is safe to operate and can be replaced easily later on. This method can be a class method of the Disbursement class.
