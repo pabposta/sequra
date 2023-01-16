@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_116_193_126) do
+ActiveRecord::Schema[7.0].define(version: 20_230_116_212_205) do
+  create_table 'disbursements', force: :cascade do |t|
+    t.datetime 'week_start', null: false
+    t.integer 'order_id', null: false
+    t.integer 'merchant_id', null: false
+    t.float 'amount', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['merchant_id'], name: 'index_disbursements_on_merchant_id'
+    t.index ['order_id'], name: 'index_disbursements_on_order_id'
+    t.index %w[week_start merchant_id], name: 'index_disbursements_on_week_start_and_merchant_id'
+  end
+
   create_table 'merchants', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'email', null: false
@@ -38,6 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 20_230_116_193_126) do
     t.datetime 'updated_at', null: false
   end
 
+  add_foreign_key 'disbursements', 'merchants'
+  add_foreign_key 'disbursements', 'orders'
   add_foreign_key 'orders', 'merchants'
   add_foreign_key 'orders', 'shoppers'
 end
