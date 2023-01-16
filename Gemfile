@@ -48,6 +48,8 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'apipie-rails', '~> 0.9.1'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -66,7 +68,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem 'apipie-rails', '~> 0.9.1'
   gem 'rubocop', '~> 1.43.0', require: false
   gem 'tapioca', '~> 0.10.5'
 end

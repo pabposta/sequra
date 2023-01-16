@@ -14,6 +14,30 @@ The first step is to set up the project and dependencies, so that the project ca
 
 The framework that is going to be used is Ruby on Rails 7 with Ruby 3.2. It offers support for many of the task requirements, including data modeling and persistence (Sqlite3 for simplicity), the endpoint, helpers for operations, etc. It also has good tooling and test support (RSpec in this case).
 
+Rbenv is required. Installation instructions for different systems can be found here: https://github.com/rbenv/rbenv.
+```
+rbenv install 3.2.0
+cd <app dir>
+rbenv local 3.2.0
+rbenv rehash
+gem install bundler
+bundle install
+tapioca init (optional, for Sorbet)
+```
+
+To run the RSpec tests:
+`bundle exec rspec`
+
+The tools used are:
+
+Rubocop for auto-formatting and correcting the code. It ensures that everyone has the same coding style and can help uncover and correct potential issues.
+Run `bundle exec rubocop -a` for a check that can also autocorrect safe-to-correct issues.
+
+Sorbet for type hints and type checking. This allows to check correct types statically and at runtime, improves readability because it makes the intent clear and has IDE integration.
+Run `bundle exec srb tc` for the static check.
+
+Apipie for API documentation. It allows to formally define the API and auto-generate a documentation at `http://localhost:3000/apipie`.
+
 ### Iteration 2: Existing models
 
 The second step will be to set up the existing models Merchants, Shoppers and Orders. I will also seed them from the JSON files. Shoppers are only required to check for foreign keys, but will not be otherwise used. Merchants are similar, but they can be used to validate if a merchant ID in an endpoint is valid. Orders will be the base for the disbursement calculation.
@@ -21,6 +45,8 @@ The second step will be to set up the existing models Merchants, Shoppers and Or
 These models themselves appear to be somewhat out of scope of the task, but they will still be tested for data consistency, as this is production ready code.
 
 Negative order values are not specified. I will assume they are not possible and an error should be raised if trying to create one.
+
+Run `bundle exec rails db:create`, `bundle exec rails db:migrate` and `bundle exec rails db:seed` to create and populate the database.
 
 ### Iteration 3: Weekly order disbursements
 
